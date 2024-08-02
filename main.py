@@ -15,9 +15,17 @@ from selenium.common.exceptions import InvalidArgumentException
 
 
 # 全局变量
-
 who = '芳乃'  # 默认用户
 watch_time = 3600  # 播放时间，单位s
+
+
+# 发信息
+def send_message(who: str, message: str) -> None:
+    # 获取会话列表
+    wx.GetSessionList()
+    wx.ChatWith(who)  # 打开`who`聊天窗口
+    # for i in range(10):
+    wx.SendMsg(message, who)  # 向`who`发送消息：你好~
 
 
 # 定义接收
@@ -81,13 +89,17 @@ def click_if_exists(driver, xpath):
 def wxstart():
     global who
     time.sleep(1)
-    PyOfficeRobot.chat.send_message(who=who, message='初始化中')
+    send_message(who=who, message='初始化中')
+
     time.sleep(1)
-    PyOfficeRobot.chat.send_message(who=who, message='你好，请发送')
+    send_message(who=who, message='你好，请发送')
+
     time.sleep(20)
     receive_message1(who, 'web.txt', './')
+
     time.sleep(1)
-    PyOfficeRobot.chat.send_message(who=who, message='报名停止')
+    send_message(who=who, message='报名停止')
+
     time.sleep(5)
     run_browser_task()
 
@@ -166,7 +178,7 @@ def run_browser_task():
 
 if __name__ == '__main__':
     # 定时任务:至少一分钟前开启！！！！，每个计划运行前要等待前计划运行完毕
-    schedule.every().day.at("11:24").do(wxstart)
+    schedule.every().day.at("12:07").do(wxstart)
     # schedule.every().day.at("11:14").do(wxstart)
     # schedule.every().day.at("11:02").do(wxstart)
     # schedule.every().day.at("11:02").do(wxstart)
