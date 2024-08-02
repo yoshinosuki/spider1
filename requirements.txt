@@ -1,2 +1,4 @@
 selenium==4.8.3
-
+schedule~=1.2.1
+itchat
+PyOfficeRobot~=0.1.20
